@@ -1,16 +1,21 @@
-<h1>Searching for - <%= @search_term %></h1>
-
-<% if @recipes.nil? %>
-  <p>not found</p>
-<% else %>
-
-  <table border = "0">
-    <% @recipes.each do |item| %>
-      <tr>
-        <td><%= link_to image_tag(item["image_url"], height: '100', width: '100'), item["f2f_url"] %></td>
-        <td><%= link_to sanitize(item["title"]), item["f2f_url"] %></td>
-        <td><%= item["social_rank"] %></td>
-      </tr>
-    <%end%>
-  </table>
+<%= form_tag ("/index"), method: "get" do %>
+  <%= label_tag( "Search for:") %>
+  <%= text_field_tag(:search) %>
+  <%= submit_tag("Search") %>
 <% end %>
+
+<table border ="1">
+  <tr>
+    <th>Image_url</th>
+    <th>Name</th>
+    <th>Rank</th>
+  </tr>
+  <% @recipes.each do |recipe| %>
+  <tr>
+      <td><%= link_to image_tag(recipe["image_url"],size:"100x100"),recipe["f2f_url"] %> </td>
+      <td><%= link_to(sanitize(recipe["title"]),recipe["f2f_url"])  %> </td>
+      <td><%= recipe["social_rank"] %> </td>
+  </tr>
+  <% end %>
+  <p>Powered By Food2Fork.com</p>
+</table>
